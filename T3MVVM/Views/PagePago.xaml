@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="T3MVVM.Views.PagePago"
+             xmlns:model="clr-namespace:T3MVVM.Models"
+             xmlns:local="clr-namespace:T3MVVM.ViewModels">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Command="{Binding AddPagoCommand}"/>
+    </ContentPage.ToolbarItems>
+    
+    <ContentPage.Content>
+        
+        <StackLayout>
+     
+            <RefreshView x:DataType="local:pagoViewModel"
+                         Command="{Binding LoadPagoCommand}" 
+                         IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                         >
+                <CollectionView ItemsSource="{Binding PagoInfo}" SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout x:DataType="model:Pagos">
+                                <StackLayout x:DataType="model:Pagos">
+                                    <SwipeView>
+                                        <SwipeView.RightItems>
+                                            <SwipeItems>
+                                                <SwipeItem Text="Delete" BackgroundColor="Red"
+                                                       Command="{Binding Source={RelativeSource AncestorType={x:Type local:pagoViewModel}},
+                                                        Path=PagoTappedDelete}" CommandParameter="{Binding .}"/>
+                                                <SwipeItem IsDestructive="True" Text="Close" BackgroundColor="Green"/>
+                                            </SwipeItems>
+                                        </SwipeView.RightItems>
+
+
+                                        <Grid Padding="5">
+                                            <Frame CornerRadius="10" HasShadow="True">
+
+                                                <StackLayout Orientation="Horizontal"  Spacing="20">
+                                                    <Image Grid.RowSpan="2" Source="user.png" Aspect="AspectFill" HeightRequest="60" WidthRequest="60"></Image>
+                                                    <StackLayout>
+                                                        <Label Grid.Column="1" Text="{Binding Nombre}" FontAttributes="Bold"></Label>
+                                                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding Puesto}" ></Label>
+                                                    </StackLayout>
+                                                    <StackLayout VerticalOptions="Center" HorizontalOptions="EndAndExpand">
+                                                        <Image Source="edit.png" Grid.Column="3" WidthRequest="30" HeightRequest="30" VerticalOptions="End">
+                                                            <Image.GestureRecognizers>
+                                                                <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                                                  Command="{Binding Source={RelativeSource AncestorType={x:Type local:pagoViewModel}},
+                                                                Path=PagoTappedEdit}" CommandParameter="{Binding .}"/>
+                                                            </Image.GestureRecognizers>
+                                                        </Image>
+                                                    </StackLayout>
+                                                </StackLayout>
+
+                                            </Frame>
+
+
+                                        </Grid>
+                                    </SwipeView>
+                                </StackLayout>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                    <CollectionView.Header>
+                        
+                        <StackLayout>
+                            <Label Text="Lista de pagos" FontSize="Large" TextColor="Gray" HorizontalOptions="Center"/>
+                            <Label Text="Deslice a la izquierda elemento para borrar registro" FontSize="Small" TextColor="Gray" HorizontalOptions="Center"/>
+                        </StackLayout>
+
+
+                    </CollectionView.Header>
+                    <CollectionView.Footer>
+
+                        <StackLayout>
+                            <Label Text="..." FontSize="Large" TextColor="Gray" HorizontalOptions="Center"/>
+
+                        </StackLayout>
+
+
+                    </CollectionView.Footer>
+                </CollectionView>
+            </RefreshView>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

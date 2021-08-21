@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="T3MVVM.Views.AddPagoPage"
+             xmlns:local="clr-namespace:T3MVVM.ViewModels">
+
+    <ContentPage.BindingContext>
+        <local:AddPagoViewModel/>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Nombres" FontSize="Medium" ></Label>
+            <Entry Text="{Binding Pagos.Nombre, Mode=TwoWay}" FontSize="Medium"/>
+            <Label Text="Apellidos" FontSize="Medium" ></Label>
+            <Entry Text="{Binding Pagos.Apellidos, Mode=TwoWay}" FontSize="Medium"/>
+            <Label Text="Direccion" FontSize="Medium" ></Label>
+            <Entry Text="{Binding Pagos.Direccion, Mode=TwoWay}" FontSize="Medium"/>
+            <Label Text="Edad" FontSize="Medium" ></Label>
+            <Entry Text="{Binding Pagos.Edad, Mode=TwoWay}" Keyboard="Numeric" FontSize="Medium"/>
+            <Label Text="Puesto" FontSize="Medium" ></Label>
+            <Entry Text="{Binding Pagos.Puesto, Mode=TwoWay}" FontSize="Medium"/>
+            
+            <StackLayout Orientation="Horizontal">
+                
+                <Button Text="Cancelar" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
+                <Button Text="Guardar" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>
+            </StackLayout>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
